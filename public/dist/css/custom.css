@@ -1,3 +1,14 @@
 .timeIndex {
     font-size: 12px;
 }
+
+.formatText {
+    white-space: nowrap; /* Ngăn chặn xuống dòng */
+    overflow: hidden; /* Ẩn nội dung vượt quá kích thước của phần tử */
+    text-overflow: ellipsis; /* Hiển thị dấu "..." khi vượt quá */
+    max-width: 100px; /* Đặt chiều rộng tối đa của phần tử */
+}
+
+.fontSize {
+    font-size: 12px;
+}

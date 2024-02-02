@@ -6,7 +6,7 @@
 
 {{--  Breadcrumbs  --}}
 @section('breadcrumbs')
-{{ Breadcrumbs::render('Dashboard') }}
+{{ Breadcrumbs::render('Databoard') }}
 @endsection
 
 {{--  Content  --}}

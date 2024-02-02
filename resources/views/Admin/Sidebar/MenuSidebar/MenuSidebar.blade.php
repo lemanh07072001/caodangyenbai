@@ -21,6 +21,9 @@
         </a>
       </li>
 
+      <li class="nav-header">QUẢN LÝ</li>
+
+
       <li class="nav-item {{request()->routeIs('categories.*')?'menu-open':''}}">
         <a href="#" class="nav-link {{request()->routeIs('categories.*')?'active':''}}">
           <i class="nav-icon fas fa-copy"></i>
@@ -45,6 +48,26 @@
           </li>
 
         </ul>
+      </li>
+
+       {{--  Banenr  --}}
+       <li class="nav-item ">
+        <a href="{{route('banner.index')}}" class="nav-link {{request()->routeIs('banner.*')?'active':''}}">
+          <i class="nav-icon fas fa-sliders-h"></i>
+          <p>
+            Banner
+          </p>
+        </a>
+      </li>
+
+      {{--  Slide  --}}
+      <li class="nav-item ">
+        <a href="{{route('slide.index')}}" class="nav-link {{request()->routeIs('slide.*')?'active':''}}">
+          <i class="nav-icon fas fa-sliders-h"></i>
+          <p>
+            Slide
+          </p>
+        </a>
       </li>
 
     </ul>

@@ -81,7 +81,8 @@
 
         const _CUSTOM_DATATABLES = {
             CLASS_ROW : '',
-            PAGE : '1'
+            PAGE : '1',
+            TARGETS : [1,2,3,4,5]
         }
         var dataTableIndex = initializeDataTable(url,columns,_CUSTOM_DATATABLES);
 
@@ -106,7 +107,7 @@
 
         /* Destroy Ajax */
         const urlDestroy = 'admin/categories/destroy'
-        ajaxDestroy(urlDestroy,dataTableIndex,'alert')
+        ajaxDestroy(urlDestroy,dataTableIndex,'toast')
 
         /* Update Status Ajax */
         const urlUpdateStatus = 'admin/categories/changeStatus';

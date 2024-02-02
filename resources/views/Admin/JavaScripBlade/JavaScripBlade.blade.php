@@ -48,12 +48,18 @@
 <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 <script src="https://cdn.datatables.net/rowgroup/1.4.1/js/dataTables.rowGroup.min.js"> </script>
 
-<!-- sweetalert2 -->
+<!-- datatables -->
 <script src="{{asset('dist/js/ajax.js')}}"></script>
 <script src="{{asset('dist/js/datatables.js')}}"></script>
 <script src="{{asset('dist/js/language.js')}}"></script>
 <script src="{{asset('dist/js/action.js')}}"></script>
 <script src="{{asset('dist/js/notification_message.js')}}"></script>
+
+<!-- ckfinder -->
+<script type="text/javascript" src="{{asset('ckfinder/ckfinder.js')}}"></script>
+
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 
 <!-- sweetalert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
