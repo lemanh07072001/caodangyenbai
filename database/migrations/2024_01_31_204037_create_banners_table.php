@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('status')->default(0);
             $table->smallInteger('type')->default(0);
             $table->string('thumbnail')->nullable();
+            $table->string('order')->nullable();
             $table->timestamps();
         });
     }

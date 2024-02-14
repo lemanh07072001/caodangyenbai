@@ -6,6 +6,7 @@ use App\Helper\getDataBase;
 use Illuminate\Http\Request;
 use App\Service\Slide\ServiceSlide;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Slide\SlideRequest;
 
 class SlideController extends Controller
 {
@@ -28,11 +29,12 @@ class SlideController extends Controller
 
     public function create()
     {
+
         $getCategories = getDataBase::getCategories();
-        return view('admin.Page.banners.create', compact('getCategories'));
+        return view('admin.Page.slide.create', compact('getCategories'));
     }
 
-    public function store(Request $request)
+    public function store(SlideRequest $request)
     {
         return $this->table->store($request);
     }
@@ -46,10 +48,10 @@ class SlideController extends Controller
     {
         $getFind = $this->table->getFind($id);
         $getCategories = getDataBase::getCategories();
-        return view('admin.Page.banners.edit', compact('getFind', 'getCategories'));
+        return view('admin.Page.slide.edit', compact('getFind', 'getCategories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(SlideRequest $request, $id)
     {
         return $this->table->update($request, $id);
     }

@@ -12,25 +12,34 @@ use Yajra\DataTables\DataTables;
 
 class ServiceCategorises
 {
-    public function getData($request){
+    public function getData($request)
+    {
         $searchInput = $request->input('searchInput');
         $statusSelect = $request->input('statusSelect');
-
+        $filer = [];
 
         $categories = Categories::query();
         $categories  = $categories->with(['subCategories'])->whereNull('parent_id')->latest();
 
-        if ($request->has('searchInput') && !empty($searchInput)){
-            $categories->where(function ($query) use($searchInput){
-                $query->where('title','like','%'.$searchInput.'%');
+        if ($request->has('searchInput') && !empty($searchInput)) {
+            $categories->where(function ($query) use ($searchInput) {
+                $query->where('title', 'like', '%' . $searchInput . '%');
             });
         }
 
-        if ($request->has('statusSelect') && !empty($statusSelect)){
-            $categories->where('status','=',$statusSelect);
+        if ($request->has('statusSelect') && !empty($statusSelect)) {
+            if ($statusSelect == 'active') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+
+            $filer[] = ['status', '=', $status];
         }
 
-
+        if (!empty($filer)) {
+            $categories = $categories->where($filer);
+        }
 
         $categories =  DataTables::of($categories)
             ->addIndexColumn()
@@ -42,7 +51,8 @@ class ServiceCategorises
         return $categories;
     }
 
-    public function store($request){
+    public function store($request)
+    {
 
         $data = [
             'title' => $request->title,
@@ -55,16 +65,17 @@ class ServiceCategorises
         ];
 
         $dataStatus = Categories::create($data);
-        if ($dataStatus){
+        if ($dataStatus) {
             Message::NotificationStatus('add');
             return Message::RedirectRoute('categories.index');
-        }else{
+        } else {
             Message::NotificationStatus('error');
             return Message::RedirectRoute();
         }
     }
 
-    public function changeCategories($request,$id){
+    public function changeCategories($request, $id)
+    {
         $valueInput = $request->value;
 
         $data = [
@@ -72,27 +83,28 @@ class ServiceCategorises
             'updated_at' => date("Y-m-d H:i:s"),
         ];
 
-        if ($valueInput === null){
+        if ($valueInput === null) {
             $data['type'] = 0;
-        }else{
+        } else {
             $data['type'] = null;
         }
 
 
         $dataStatus = Categories::findOrFail($id)->update($data);
 
-        if ($dataStatus){
+        if ($dataStatus) {
             return response()->json([
                 'message' => 'Cập nhật thành công!'
-            ],200);
-        }else{
+            ], 200);
+        } else {
             return response()->json([
                 'message' => 'Lỗi hệ thống vui lòng thử lại sau!'
-            ],500);
+            ], 500);
         }
     }
 
-    public function changeStatus($request,$id){
+    public function changeStatus($request, $id)
+    {
 
         $valueChange = $request->value;
 
@@ -103,22 +115,24 @@ class ServiceCategorises
 
         $dataStatus = Categories::findOrFail($id)->update($data);
 
-        if ($dataStatus){
+        if ($dataStatus) {
             return response()->json([
                 'message' => 'Cập nhật thành công!'
-            ],200);
-        }else{
+            ], 200);
+        } else {
             return response()->json([
                 'message' => 'Lỗi hệ thống vui lòng thử lại sau!'
-            ],500);
+            ], 500);
         }
     }
 
-    public function getFind($id){
+    public function getFind($id)
+    {
         return Categories::findOrFail($id);
     }
 
-    public function update($request,$id){
+    public function update($request, $id)
+    {
         $data = [
             'title' => $request->title,
             'slug' => $request->slug,
@@ -130,24 +144,25 @@ class ServiceCategorises
         ];
 
         $dataStatus = Categories::findOrFail($id)->update($data);
-        if ($dataStatus){
+        if ($dataStatus) {
             Message::NotificationStatus('edit');
             return Message::RedirectRoute('categories.index');
-        }else{
+        } else {
             Message::NotificationStatus('error');
             return Message::RedirectRoute();
         }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         try {
             $dataStatus = Categories::findOrFail($id)->delete();
-            if ($dataStatus){
+            if ($dataStatus) {
                 return Message::RedirectResponsive(200);
-            }else{
+            } else {
                 return Message::RedirectResponsive(500);
             }
-        }catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
 
             if ($e->errorInfo[1] == 1451) {
                 return response()->json([

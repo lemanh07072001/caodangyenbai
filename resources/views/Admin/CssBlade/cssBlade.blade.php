@@ -27,3 +27,6 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
 
+  <!-- tagInput -->
+  <link rel="stylesheet" href="{{asset('dist/css/bootstrap-tagsinput.css')}}">
+

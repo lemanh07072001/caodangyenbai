@@ -38,18 +38,40 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <label for="inputStatus">Danh mục <x-span-danger/></label>
-                            <select id="inputStatus" name="categories_id" class="form-control custom-select @error('categories_id')is-invalid @enderror">
-                                <option value="">-- Chọn danh mục --</option>
-                                @if(!empty($getCategories))
-                                    {{showCategoriesSelect($getCategories,old('categories_id'))}}
-                                @endif
-                            </select>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputStatus">Danh mục <x-span-danger/></label>
+                                    <select id="inputStatus" name="categories_id" class="form-control custom-select @error('categories_id')is-invalid @enderror">
+                                        <option value="">-- Chọn danh mục --</option>
+                                        @if(!empty($getCategories))
+                                            {{showCategoriesSelect($getCategories,old('categories_id'))}}
+                                        @endif
+                                    </select>
+        
+                                    @error('categories_id')
+                                    <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
 
-                            @error('categories_id')
-                            <small class="text-danger">{{$message}}</small>
-                            @enderror
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputOrder">Vị trí <x-span-danger/></label>
+                                    <select id="inputOrder" name="order" class="form-control custom-select @error('order')is-invalid @enderror">
+                                        <option value="">-- Chọn vị trí --</option>
+                                        @foreach(showOrderBannerList() as $key=>$order)
+                                            @if(!in_array($key,$getOrderBanner))
+                                                <option value="{{$key}}"{{old('order')==$key?'selected':''}}>{{$order}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+        
+                                    @error('order')
+                                    <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">

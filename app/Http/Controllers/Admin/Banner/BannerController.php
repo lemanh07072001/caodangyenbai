@@ -29,8 +29,9 @@ class BannerController extends Controller
 
     public function create()
     {
+        $getOrderBanner = getDataBase::getOrderBanner();
         $getCategories = getDataBase::getCategories();
-        return view('admin.Page.banners.create', compact('getCategories'));
+        return view('admin.Page.banners.create', compact('getCategories', 'getOrderBanner'));
     }
 
     public function store(BannerRequest $request)
@@ -47,7 +48,8 @@ class BannerController extends Controller
     {
         $getFind = $this->table->getFind($id);
         $getCategories = getDataBase::getCategories();
-        return view('admin.Page.banners.edit', compact('getFind', 'getCategories'));
+        $getOrderBanner = getDataBase::getOrderBanner();
+        return view('admin.Page.banners.edit', compact('getFind', 'getCategories', 'getOrderBanner'));
     }
 
     public function update(BannerRequest $request, $id)

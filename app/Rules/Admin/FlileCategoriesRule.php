@@ -15,15 +15,16 @@ class FlileCategoriesRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (!empty(pathinfo($value)['extension'])) {
+            $exFile = pathinfo($value)['extension'];
 
-        $exFile = pathinfo($value)['extension'];
+            $extensionVideo = formatData::dataVideo();
+            $extensionImage = formatData::dataImage();
 
-        $extensionVideo = formatData::dataVideo();
-        $extensionImage = formatData::dataImage();
-
-        if (!in_array($exFile, $extensionVideo) && !in_array($exFile, $extensionImage)) {
-            // Xử lý cho video
-            $fail("Định dạng file không hợp lệ: " . implode(',', $extensionVideo) . ',' . implode(',', $extensionImage));
+            if (!in_array($exFile, $extensionVideo) && !in_array($exFile, $extensionImage)) {
+                // Xử lý cho video
+                $fail("Định dạng file không hợp lệ: " . implode(',', $extensionVideo) . ',' . implode(',', $extensionImage));
+            }
         }
     }
 }

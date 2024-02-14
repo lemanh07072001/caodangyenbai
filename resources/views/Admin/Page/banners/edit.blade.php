@@ -2,7 +2,7 @@
 @extends('Admin.LayoutAdmin.layout')
 
 {{--  Title  --}}
-@section('title','Thêm Banner')
+@section('title','Sửa    Banner')
 
 {{--  Breadcrumbs  --}}
 @section('breadcrumbs')
@@ -38,18 +38,38 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <label for="inputStatus">Danh mục <x-span-danger/></label>
-                            <select id="inputStatus" name="categories_id" class="form-control custom-select @error('categories_id')is-invalid @enderror">
-                                <option value="">-- Chọn danh mục --</option>
-                                @if(!empty($getCategories))
-                                    {{showCategoriesSelect($getCategories,old('categories_id')??$getFind->categories_id)}}
-                                @endif
-                            </select>
-
-                            @error('categories_id')
-                            <small class="text-danger">{{$message}}</small>
-                            @enderror
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputStatus">Danh mục <x-span-danger/></label>
+                                    <select id="inputStatus" name="categories_id" class="form-control custom-select @error('categories_id')is-invalid @enderror">
+                                        <option value="">-- Chọn danh mục --</option>
+                                        @if(!empty($getCategories))
+                                            {{showCategoriesSelect($getCategories,old('categories_id')??$getFind->categories_id)}}
+                                        @endif
+                                    </select>
+        
+                                    @error('categories_id')
+                                    <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                          
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputOrder">Vị trí <x-span-danger/></label>
+                                    <select id="inputOrder" name="order" class="form-control custom-select @error('order')is-invalid @enderror">
+                                        <option value="">-- Chọn vị trí --</option>
+                                        @foreach(showOrderBannerList() as $key=>$order)
+                                        <option value="{{$key}}"{{old('order')||$getFind->order==$key?'selected':''}} >{{$order}}</option>
+                                        @endforeach
+                                    </select>
+        
+                                    @error('order')
+                                    <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -69,12 +89,16 @@
                             </div>
                         </div>
 
+                        <div>
+                            
+                        </div>
+
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-4">
-                <div class="card card-warning">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title">Hình ảnh</h3>
 
@@ -117,8 +141,28 @@
                                 <button class="btn btn-success ">Xác nhận</button>
                             </div>
                         </div>
+
+                        
                     </div>
+                    
                 </div>
+
+                <div class="card card-warning">
+                    
+                    <div class="card-body">
+                        <dl>
+                            <dt>Vị trị đã được chọn</dt>
+                            @foreach(showOrderBannerList() as $key => $item)
+                                @if(in_array($key, $getOrderBanner))
+                                    <dd>{{$item}}.</dd>
+                                @endif
+                            @endforeach
+                          </dl>
+
+                    </div>
+                    
+                </div>
+               
             </div>
 
         </div>

@@ -22,8 +22,8 @@
                 <div class="col-lg-2 mt-sm-2 mt-2 mt-lg-0">
                     <select class="form-control form-control-sm" id="liveStatusSelect">
                         <option value="">-- Chọn trạng thái --</option>
-                        <option value="0">Kích hoạt</option>
-                        <option value="1">Không kích hoạt</option>
+                        <option value="active">Kích hoạt</option>
+                        <option value="no_active">Không kích hoạt</option>
                     </select>
                 </div>
                 <div class="col-lg-2 mt-sm-2 mt-2 mt-lg-0">
@@ -52,13 +52,13 @@
             <thead>
             <tr>
                 <th width="5%">ID</th>
-                <th width="15%">Hình ảnh/Video</th>
+                <th width="13%">Hình ảnh/Video</th>
                 <th>Tên Banner</th>
-                <th width="15%">Danh mục/Link</th>
+                <th width="12%">Danh mục/Link</th>
                 <th width="10%">Người tạo</th>
                 <th width="10%">Trạng thái</th>
-                <th width="10%">Type</th>
-                <th width="10%">Thời gian</th>
+                <th width="5%">Type</th>
+                <th width="10%">Vị trí</th>
                 <th width="10%">Hoạt động</th>
             </tr>
             </thead>
@@ -89,7 +89,7 @@
             { data: 'user_id' },
             { data: 'type' },
             { data: 'status'},
-            { data: 'format_date'},
+            { data: 'order'},
             { data: 'work'},
         ];
 

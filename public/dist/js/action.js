@@ -103,3 +103,24 @@ function getFileType(filePath) {
 
     return false;
 }
+// ckEditor
+ckEditor();
+function ckEditor() {
+    $(".ckeditor").each(function (key) {
+        const ckEditorID = $(this).attr("id", "ckeditor_" + key);
+        CKEDITOR.replace(ckEditorID);
+    });
+}
+
+// ClickPreviewImageButton
+clickPreviewImageButton();
+function clickPreviewImageButton() {
+    $(document).on("click", ".img", function (e) {
+        const url = $(this).attr("src");
+        Swal.fire({
+            imageUrl: url,
+            imageWidth: "auto",
+            imageHeight: "auto",
+        });
+    });
+}

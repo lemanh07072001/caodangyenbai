@@ -64,3 +64,79 @@ function ajaxUpdateStatus(url, dataTableIndex) {
         });
     });
 }
+
+// Function Update Title Ajax
+
+function ajaxUpdateTitle(url, title = "Title", dataTableIndex) {
+    $(document).on("click", ".btnInputEdit", async function (e) {
+        try {
+            var ID = $(this).closest("tr").attr("id");
+            const currentData = await getCurrentData(url, ID);
+            Swal.fire({
+                title: `Cập nhật tên ${title} `,
+                input: "text",
+                inputLabel: "Vui lòng nhập dữ liệu cập nhập",
+                inputValue: currentData.data.title,
+                inputAttributes: {
+                    autocapitalize: "off",
+                },
+                showCancelButton: true,
+                confirmButtonText: "Xác nhận",
+                showLoaderOnConfirm: true,
+                preConfirm: async (value) => {
+                    try {
+                        const response = await updateData(url, ID, value);
+
+                        if (response.errors) {
+                            Swal.showValidationMessage(`
+                                  ${response.errors.title}
+                                `);
+                        }
+
+                        if (response.success) {
+                            dataTableIndex.ajax.reload();
+                            return alertOption(response.success);
+                        }
+                    } catch (error) {
+                        Swal.showValidationMessage(`
+                      Request failed: ${error}
+                    `);
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading(),
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+
+    async function getCurrentData(url, ID) {
+        try {
+            const response = await $.ajax({
+                url: "/admin/" + url + "/getTitle/" + ID,
+                type: "GET",
+            });
+
+            return response;
+        } catch (error) {
+            throw new Error(
+                "Failed to fetch current data: " + error.statusText
+            );
+        }
+    }
+
+    async function updateData(url, ID, data) {
+        try {
+            const response = await $.ajax({
+                url: "/admin/" + url + "/updateTitle/" + ID,
+                type: "POST",
+                data: { title: data },
+                dataType: "json", // Adjust accordingly
+            });
+
+            return response;
+        } catch (error) {
+            throw new Error("Failed to update data: " + error.statusText);
+        }
+    }
+}

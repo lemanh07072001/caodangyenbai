@@ -2,11 +2,11 @@
 @extends('Admin.LayoutAdmin.layout')
 
 {{--  Title  --}}
-@section('title','Danh sách Banner')
+@section('title','Danh sách Slide')
 
 {{--  Breadcrumbs  --}}
 @section('breadcrumbs')
-{{ Breadcrumbs::render('Banner') }}
+{{ Breadcrumbs::render('Slide') }}
 @endsection
 
 {{--  Content  --}}
@@ -17,13 +17,13 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-lg-2 ">
-                    <a href="{{route('banner.create')}}" class="btn btn-success btn-block btn-sm">Thêm dữ liệu</a>
+                    <a href="{{route('slide.create')}}" class="btn btn-success btn-block btn-sm">Thêm dữ liệu</a>
                 </div>
                 <div class="col-lg-2 mt-sm-2 mt-2 mt-lg-0">
                     <select class="form-control form-control-sm" id="liveStatusSelect">
                         <option value="">-- Chọn trạng thái --</option>
-                        <option value="0">Kích hoạt</option>
-                        <option value="1">Không kích hoạt</option>
+                        <option value="active">Kích hoạt</option>
+                        <option value="no_active">Không kích hoạt</option>
                     </select>
                 </div>
                 <div class="col-lg-2 mt-sm-2 mt-2 mt-lg-0">
@@ -58,7 +58,7 @@
                 <th width="10%">Người tạo</th>
                 <th width="10%">Trạng thái</th>
                 <th width="10%">Type</th>
-                <th width="10%">Thời gian</th>
+                <th width="10%">Vị trí</th>
                 <th width="10%">Hoạt động</th>
             </tr>
             </thead>
@@ -79,7 +79,7 @@
 <script>
     $(document).ready(function () {
 
-        const url = '{!! route('banner.getData') !!}';
+        const url = '{!! route('slide.getData') !!}';
 
         const columns = [
             { data: 'id'},
@@ -89,7 +89,7 @@
             { data: 'user_id' },
             { data: 'type' },
             { data: 'status'},
-            { data: 'format_date'},
+            { data: 'order'},
             { data: 'work'},
         ];
 
@@ -103,11 +103,11 @@
         var dataTableIndex = initializeDataTable(url,columns,_CUSTOM_DATATABLES);
 
         /* Destroy Ajax */
-        const urlDestroy = 'admin/banner/destroy'
+        const urlDestroy = 'admin/slide/destroy'
         ajaxDestroy(urlDestroy,dataTableIndex,'toast')
 
         /* Update Status Ajax */
-        const urlUpdateStatus = 'admin/banner/changeStatus';
+        const urlUpdateStatus = 'admin/slide/changeStatus';
         ajaxUpdateStatus(urlUpdateStatus,dataTableIndex)
 
        

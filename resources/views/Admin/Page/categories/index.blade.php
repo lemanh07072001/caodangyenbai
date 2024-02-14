@@ -22,8 +22,8 @@
                 <div class="col-lg-2 mt-sm-2 mt-2 mt-lg-0">
                     <select class="form-control form-control-sm" id="liveStatusSelect">
                         <option value="">-- Chọn trạng thái --</option>
-                        <option value="0">Kích hoạt</option>
-                        <option value="1">Không kích hoạt</option>
+                        <option value="active">Kích hoạt</option>
+                        <option value="no_active">Không kích hoạt</option>
                     </select>
                 </div>
                 <div class="col-lg-8 mt-sm-2 mt-2 mt-lg-0">

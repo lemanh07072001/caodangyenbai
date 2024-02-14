@@ -4,7 +4,9 @@
 namespace App\Helper;
 
 
+use App\Models\Admin\Slide\Slide;
 use Illuminate\Support\Facades\DB;
+use App\Models\Admin\Banner\Banner;
 
 class getDataBase
 {
@@ -16,5 +18,13 @@ class getDataBase
     public static function getUser()
     {
         return DB::table('users')->select('id', 'name')->get();
+    }
+
+    public static function getOrderBanner(){
+        return Banner::pluck('order')->toArray();
+    }
+
+    public static function getOrderSlide(){
+        return Slide::pluck('order')->toArray();
     }
 }

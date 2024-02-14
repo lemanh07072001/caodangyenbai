@@ -1,9 +1,14 @@
-function initializeDataTable(url, arrayColumns, custom = {}) {
+function initializeDataTable(
+    url,
+    arrayColumns,
+    custom = {},
+    dataTable = "dataTables"
+) {
     const liveStatusSelect = $("#liveStatusSelect");
     const liveSearchInput = $("#liveSearchInput");
     const liveUserSelect = $("#liveUserSelect");
 
-    var datatables = $("#dataTables").DataTable({
+    var datatables = $("#" + dataTable + "").DataTable({
         ajax: {
             url: url,
             data: function (data) {

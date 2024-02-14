@@ -6,11 +6,13 @@ namespace App\Service\Slide;
 use App\Helper\Message;
 use App\Helper\formatData;
 use App\Models\Admin\Banner\Banner;
+use App\Models\Admin\Slide\Slide;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class ServiceSlide
 {
+
     public function getData($request)
     {
         $searchInput = $request->input('searchInput');
@@ -18,7 +20,7 @@ class ServiceSlide
         $searchUsert = $request->input('searchUser');
         $filer = [];
 
-        $banner = Banner::query();
+        $banner = Slide::query();
         $banner->with(['user', 'categories']);
 
         if ($request->has('searchInput') && !empty($searchInput)) {
@@ -28,7 +30,12 @@ class ServiceSlide
         }
 
         if ($request->has('statusSelect') && !empty($statusSelect)) {
-            $filer[] = ['status', '=', $statusSelect];
+            if ($statusSelect == 'active') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            $filer[] = ['status', '=', $status];
         }
 
         if ($request->has('searchUser') && !empty($searchUsert)) {
@@ -58,13 +65,13 @@ class ServiceSlide
             ->editColumn('type', function ($data) {
                 return formatType($data->type);
             })
-            ->editColumn('format_date', function ($data) {
-                return formatDate($data->created_at, $data->updated_at);
+            ->editColumn('order', function ($data) {
+                return formatOrderSlide($data->order);
             })
             ->editColumn('work', function ($data) {
-                return formatWork($data->id, 'banner');
+                return formatWork($data->id, 'slide');
             })
-            ->rawColumns(['thumbnail', 'title', 'work', 'link_action', 'status', 'format_date', 'type'])
+            ->rawColumns(['thumbnail', 'title', 'work', 'link_action', 'status', 'order', 'type'])
             ->make(true);
     }
 
@@ -79,6 +86,7 @@ class ServiceSlide
             'status' => formatData::formatStatus($request->status),
             'type' => $dataThumbnail,
             'thumbnail' => $request->thumbnail,
+            'order' => $request->order,
             'created_at' => date("Y-m-d H:i:s")
         ];
 
@@ -88,11 +96,12 @@ class ServiceSlide
             $data['link'] = $request->link;
         }
 
-        $dataStatus = Banner::create($data);
+
+        $dataStatus = Slide::create($data);
 
         if ($dataStatus) {
             Message::NotificationStatus('add');
-            return Message::RedirectRoute('banner.index');
+            return Message::RedirectRoute('slide.index');
         } else {
             Message::NotificationStatus('error');
             return Message::RedirectRoute();
@@ -109,7 +118,7 @@ class ServiceSlide
             'updated_at' => date("Y-m-d H:i:s")
         ];
 
-        $dataStatus = Banner::findOrFail($id)->update($data);
+        $dataStatus = Slide::findOrFail($id)->update($data);
 
         if ($dataStatus) {
             return response()->json([
@@ -124,7 +133,7 @@ class ServiceSlide
 
     public function getFind($id)
     {
-        return Banner::findOrFail($id);
+        return Slide::findOrFail($id);
     }
 
     public function update($request, $id)
@@ -138,6 +147,7 @@ class ServiceSlide
             'status' => formatData::formatStatus($request->status),
             'type' => $dataThumbnail,
             'thumbnail' => $request->thumbnail,
+            'order' => $request->order,
             'updated_at' => date("Y-m-d H:i:s")
         ];
 
@@ -149,11 +159,11 @@ class ServiceSlide
             $data['categories_id']  = null;
         }
 
-        $dataStatus = Banner::findOrFail($id)->update($data);
+        $dataStatus = Slide::findOrFail($id)->update($data);
 
         if ($dataStatus) {
             Message::NotificationStatus('edit');
-            return Message::RedirectRoute('banner.index');
+            return Message::RedirectRoute('slide.index');
         } else {
             Message::NotificationStatus('error');
             return Message::RedirectRoute();
@@ -162,7 +172,7 @@ class ServiceSlide
 
     public function destroy($id)
     {
-        $dataStatus = Banner::findOrFail($id)->delete();
+        $dataStatus = Slide::findOrFail($id)->delete();
 
         if ($dataStatus) {
             return response()->json([

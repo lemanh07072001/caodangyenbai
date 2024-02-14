@@ -28,8 +28,14 @@ class ServiceBanner
         }
 
         if ($request->has('statusSelect') && !empty($statusSelect)) {
-            $filer[] = ['status', '=', $statusSelect];
+            if ($statusSelect == 'active') {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            $filer[] = ['status', '=', $status];
         }
+
 
         if ($request->has('searchUser') && !empty($searchUsert)) {
             $filer[] = ['user_id', '=', $searchUsert];
@@ -58,13 +64,13 @@ class ServiceBanner
             ->editColumn('type', function ($data) {
                 return formatType($data->type);
             })
-            ->editColumn('format_date', function ($data) {
-                return formatDate($data->created_at, $data->updated_at);
+            ->editColumn('order', function ($data) {
+                return formatOrderBanner($data->order);
             })
             ->editColumn('work', function ($data) {
                 return formatWork($data->id, 'banner');
             })
-            ->rawColumns(['thumbnail', 'title', 'work', 'link_action', 'status', 'format_date', 'type'])
+            ->rawColumns(['thumbnail', 'title', 'work', 'link_action', 'status', 'order', 'type'])
             ->make(true);
     }
 
@@ -79,6 +85,7 @@ class ServiceBanner
             'status' => formatData::formatStatus($request->status),
             'type' => $dataThumbnail,
             'thumbnail' => $request->thumbnail,
+            'order' => $request->order,
             'created_at' => date("Y-m-d H:i:s")
         ];
 
@@ -87,6 +94,7 @@ class ServiceBanner
         } else {
             $data['link'] = $request->link;
         }
+
 
         $dataStatus = Banner::create($data);
 
@@ -138,6 +146,7 @@ class ServiceBanner
             'status' => formatData::formatStatus($request->status),
             'type' => $dataThumbnail,
             'thumbnail' => $request->thumbnail,
+            'order' => $request->order,
             'updated_at' => date("Y-m-d H:i:s")
         ];
 
@@ -148,6 +157,7 @@ class ServiceBanner
             $data['link'] = $request->link;
             $data['categories_id']  = null;
         }
+
 
         $dataStatus = Banner::findOrFail($id)->update($data);
 

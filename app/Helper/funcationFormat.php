@@ -39,10 +39,56 @@ function formatImageAndVideo($url, $type)
 {
     $host = formatData::getHost();
 
-    if ($type === 1) {
+    if (!empty($type) && $type === 1) {
         return '<video class="imgPre"  height="50px"><source src="' . $host . $url . '" type="video/mp4" /></video>';
-    } elseif ($type === 0) {
-        return '<img src="' . $host . $url . '" class="prevBox prevImage" alt="noImage" height="10px"/>';
+    } elseif (!empty($type) && $type === 0) {
+        return '<img src="' . $host . $url . '" class="prevBox prevImage img" alt="noImage" height="50px"/>';
+    } else {
+        return '<img src="' . $host . $url . '" class="prevBox prevImage img" alt="noImage" height="50px"/>';
+    }
+}
+
+function formatOrderBanner($data)
+{
+    switch ($data) {
+        case "banner_1":
+            return '<span class="badge badge-primary">Banner Chính 1</span>';
+            break;
+        case "banner_2":
+            return '<span class="badge badge-success">Banner Chính 2</span>';
+            break;
+        case "banner_2_right_1":
+            return '<span class="badge badge-success">Banner Chính 2 Phải 1</span>';
+            break;
+        case "banner_3":
+            return '<span class="badge badge-info">Banner Chính 3</span>';
+            break;
+        case "banner_3_right_1":
+            return '<span class="badge badge-info">Banner Chính 3 Phải 1</span>';
+            break;
+        case "banner_3_right_2":
+            return '<span class="badge badge-info">Banner Chính 3 Phải 2</span>';
+            break;
+        case "banner_3_right_3":
+            return '<span class="badge badge-info">Banner Chính 3 Phải 3</span>';
+            break;
+        default:
+            return '<span class="badge badge-danger">Không tồn tại</span>';
+    }
+}
+
+
+function formatOrderSlide($data)
+{
+    switch ($data) {
+        case "slide_1":
+            return '<span class="badge badge-primary">Banner 1</span>';
+            break;
+        case "slide_2":
+            return '<span class="badge badge-warning ">Banner 2</span>';
+            break;
+        default:
+            return '<span class="badge badge-danger">Không tồn tại</span>';
     }
 }
 
@@ -68,10 +114,12 @@ function formatType($data)
     }
 }
 
-function formatTitle($title)
-{
-    return '<span data-toggle="tooltip" data-placement="bottom" title="' . $title . '" class="fontSize formatText ">' . $title . '</span>';
-}
+// function formatTitle($title)
+// {
+//     return '<div >
+//     <span  data-toggle="tooltip" data-placement="bottom" title="' . $title . '" class="fontSize formatText " >' . $title . '</span>
+//     </div>';
+// }
 
 function formatWork($id, $route = '')
 {
@@ -103,10 +151,32 @@ function formatStatus($data)
         ';
 }
 
-function formatTite($data)
+function formatTite($data, $check = false, $optionCss = [])
 {
+
+
+
+    $cssString = '';
+
+    foreach ($optionCss as $property => $value) {
+        $cssString .= $property . ':' . $value . ';';
+    }
+
     if (!empty($data) && $data != null) {
-        return '<div class="formatText" data-toggle="tooltip" data-placement="bottom" title="' . $data . '">' . $data . '</div>';
+        return '
+            <div class="boxText">
+                <div 
+                style="' . $cssString . '"
+                class="formatText" 
+                data-toggle="tooltip" 
+                data-placement="bottom" 
+                title="' . $data . '">' . $data . '
+                   
+                
+                </div>' . ($check ? ' <span class="btnInputEdit"><i class="fas fa-edit"></i></span>' : '') . '
+               
+            </div>
+        ';
     }
     return  false;
 }

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\Dashbord\DashboardController;
 use App\Http\Controllers\Admin\Banner\BannerController;
+use App\Http\Controllers\Admin\GroupIndex\GroupIndexController;
+use App\Http\Controllers\Admin\GroupPost\GroupPostController;
+use App\Http\Controllers\Admin\Post\PostController;
 use App\Http\Controllers\Admin\Slide\SlideController;
 
 /*
@@ -71,5 +74,60 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [SlideController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [SlideController::class, 'update'])->name('update');
         Route::delete('/destroy/{id}', [SlideController::class, 'destroy'])->name('destroy');
+    });
+
+    // Post routes
+    Route::prefix('post')->name('post.')->group(function () {
+        Route::get('/', [PostController::class, 'index'])->name('index');
+        Route::get('/getData', [PostController::class, 'getData'])->name('getData');
+        Route::get('/create', [PostController::class, 'create'])->name('create');
+        Route::post('/store', [PostController::class, 'store'])->name('store');
+        Route::post('/changeCategories/{id}', [PostController::class, 'changeCategories'])->name('changeCategories');
+        Route::post('/updateTitle/{id}', [PostController::class, 'updateTitle'])->name('updateTitle');
+        Route::get('/getTitle/{id}', [PostController::class, 'getTitle'])->name('getTitle');
+        Route::post('/changeStatus/{id}', [PostController::class, 'changeStatus'])->name('changeStatus');
+        Route::post('/editTile', [PostController::class, 'editTile'])->name('editTile');
+        Route::get('/edit/{id}', [PostController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [PostController::class, 'update'])->name('update');
+        Route::delete('/destroy/{id}', [PostController::class, 'destroy'])->name('destroy');
+    });
+
+    // groupPost routes
+    Route::prefix('groupPost')->name('groupPost.')->group(function () {
+        Route::get('/', [GroupPostController::class, 'index'])->name('index');
+        Route::get('/getData', [GroupPostController::class, 'getData'])->name('getData');
+        Route::get('/create', [GroupPostController::class, 'create'])->name('create');
+        Route::post('/store', [GroupPostController::class, 'store'])->name('store');
+        Route::post('/changeCategories/{id}', [GroupPostController::class, 'changeCategories'])->name('changeCategories');
+        Route::post('/updateTitle/{id}', [GroupPostController::class, 'updateTitle'])->name('updateTitle');
+        Route::get('/getTitle/{id}', [GroupPostController::class, 'getTitle'])->name('getTitle');
+        Route::post('/changeStatus/{id}', [GroupPostController::class, 'changeStatus'])->name('changeStatus');
+        Route::post('/editTile', [GroupPostController::class, 'editTile'])->name('editTile');
+        Route::get('/edit/{id}', [GroupPostController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [GroupPostController::class, 'update'])->name('update');
+        Route::delete('/destroy/{id}', [GroupPostController::class, 'destroy'])->name('destroy');
+
+        Route::get('/list_post/{id}', [GroupPostController::class, 'listPost'])->name('listPost');
+        Route::get('/list_post_data', [GroupPostController::class, 'listPostData'])->name('listPostData');
+        Route::post('/add_list_post_data', [GroupPostController::class, 'addListPostData'])->name('addListPostData');
+
+        Route::get('/get_list_post/{id}', [GroupPostController::class, 'getListPost'])->name('getListPost');
+        Route::delete('/destroy_list_post/{id}', [GroupPostController::class, 'destroyListPost'])->name('destroyListPost');
+    });
+
+    // GroupIndex routes
+    Route::prefix('groupIndex')->name('groupIndex.')->group(function () {
+        Route::get('/', [GroupIndexController::class, 'index'])->name('index');
+        Route::get('/getData', [GroupIndexController::class, 'getData'])->name('getData');
+        Route::get('/create', [GroupIndexController::class, 'create'])->name('create');
+        Route::post('/store', [GroupIndexController::class, 'store'])->name('store');
+        Route::post('/changeCategories/{id}', [GroupIndexController::class, 'changeCategories'])->name('changeCategories');
+        Route::post('/updateTitle/{id}', [GroupIndexController::class, 'updateTitle'])->name('updateTitle');
+        Route::get('/getTitle/{id}', [GroupIndexController::class, 'getTitle'])->name('getTitle');
+        Route::post('/changeStatus/{id}', [GroupIndexController::class, 'changeStatus'])->name('changeStatus');
+        Route::post('/editTile', [GroupIndexController::class, 'editTile'])->name('editTile');
+        Route::get('/edit/{id}', [GroupIndexController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [GroupIndexController::class, 'update'])->name('update');
+        Route::delete('/destroy/{id}', [GroupIndexController::class, 'destroy'])->name('destroy');
     });
 });

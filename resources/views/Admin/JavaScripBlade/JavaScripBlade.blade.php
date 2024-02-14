@@ -58,9 +58,15 @@
 <!-- ckfinder -->
 <script type="text/javascript" src="{{asset('ckfinder/ckfinder.js')}}"></script>
 
+<!-- ckeditor -->
+<script type="text/javascript" src="{{asset('ckeditor/ckeditor.js')}}"></script>
+
 <!-- Toastr -->
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 
 <!-- sweetalert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- tagInput -->
+<script src="{{asset('dist/js/bootstrap-tagsinput.min.js')}}"></script>
 @stack('js')

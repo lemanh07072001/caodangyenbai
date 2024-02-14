@@ -21,41 +21,25 @@
         </a>
       </li>
 
-      <li class="nav-header">QUẢN LÝ</li>
+      <li class="nav-header">QUẢN LÝ DANH MỤC</li>
 
-
-      <li class="nav-item {{request()->routeIs('categories.*')?'menu-open':''}}">
-        <a href="#" class="nav-link {{request()->routeIs('categories.*')?'active':''}}">
-          <i class="nav-icon fas fa-copy"></i>
+      {{--  Banenr  --}}
+      <li class="nav-item ">
+        <a href="{{route('categories.index')}}" class="nav-link {{request()->routeIs('categories.*')?'active':''}}">
+          <i class="nav-icon fas fa-th-list"></i>
           <p>
-            Danh mục
-            <i class="fas fa-angle-left right"></i>
-            <span class="badge badge-info right">6</span>
+            Danh sách danh mục
           </p>
         </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{route('categories.index')}}" class="nav-link {{request()->routeIs('categories.*')?'active':''}}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Danh sách danh mục</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Top Navigation + Sidebar</p>
-            </a>
-          </li>
-
-        </ul>
       </li>
+     
 
        {{--  Banenr  --}}
        <li class="nav-item ">
         <a href="{{route('banner.index')}}" class="nav-link {{request()->routeIs('banner.*')?'active':''}}">
           <i class="nav-icon fas fa-sliders-h"></i>
           <p>
-            Banner
+            Danh sách Banner
           </p>
         </a>
       </li>
@@ -63,12 +47,33 @@
       {{--  Slide  --}}
       <li class="nav-item ">
         <a href="{{route('slide.index')}}" class="nav-link {{request()->routeIs('slide.*')?'active':''}}">
-          <i class="nav-icon fas fa-sliders-h"></i>
+          <i class="nav-icon fas fa-ticket-alt"></i>
           <p>
-            Slide
+            Danh sách Slide
           </p>
         </a>
       </li>
 
+      <li class="nav-header">QUẢN LÝ TIN TỨC</li>
+
+      {{--  Post  --}}
+      <li class="nav-item ">
+        <a href="{{route('post.index')}}" class="nav-link {{request()->routeIs('post.*')?'active':''}}">
+          <i class="nav-icon fas fa-newspaper"></i>
+          <p>
+            Danh sách tin tức
+          </p>
+        </a>
+      </li>
+
+      {{--  groupPost  --}}
+      <li class="nav-item ">
+        <a href="{{route('groupPost.index')}}" class="nav-link {{request()->routeIs('groupPost.*')?'active':''}}">
+          <i class="nav-icon fas fa-plus-square"></i>
+          <p>
+            Danh sách nhóm tin tức
+          </p>
+        </a>
+      </li>
     </ul>
   </nav>

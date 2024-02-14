@@ -19,7 +19,8 @@ class Banner extends Model
         'categories_id',
         'status',
         'type',
-        'thumbnail'
+        'thumbnail',
+        'order',
     ];
 
     public function user()
